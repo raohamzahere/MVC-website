@@ -1,0 +1,107 @@
+﻿@model IEnumerable<JqeryMVCLoadExample.Models.bookinfo>
+
+<head>
+    <style>
+        .form-popup {
+            display: none;
+            border: 3px solid #f1f1f1;
+            background-color: #D3D3D3;
+            border-radius: 5px;
+            width: 200px;
+            padding: 20px;
+        }
+     </style>
+    <script>
+
+
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+     
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+     
+        function validateForm()
+        {
+            var name = document.forms["ContactForm"]["title"].value;
+            var price = document.forms["ContactForm"]["price"].value;
+            var date = document.forms["ContactForm"]["date"].value;
+            var author = document.forms["ContactForm"]["author"].value;
+
+
+            if (name == "" || name == null) {
+                alert("Title must be filled out");
+                return false;
+            }
+            else if (author == "" || author == null) {
+                alert("Author Name must be filled out");
+                return false;
+            }
+            else if (price == "" || price == null) {
+                alert("Price must be filled out");
+                return false;
+            }
+            else if (date == "" || date == null) {
+                alert("Published Date must be filled out");
+                return false;
+            }
+        }
+      
+       
+    </script>
+</head>
+
+
+
+<body >
+
+    <button onclick="openForm()">ADD NEW BOOK</button>
+    <div class="form-popup" id="myForm">
+
+        <form id="ContactForm" name="myForm" action="/Home/Add" onsubmit="return validateForm()" method="get" required>
+            <input type="hidden" name="catogory" value=@Session["catogory"]>
+            <strong>Book Title :</strong><br />
+            <input type="text" name="title" class="input">
+            <br><br>
+            <strong>Author Name:</strong><br />
+            <input type="text" name="author" class="input">
+            <br><br>
+            <strong>Price of Book:</strong><br />
+            <input type="text" name="price" class="input">
+            <br><br>
+            <strong>Date OF publish:</strong><br />
+            <input type="text" name="date" class="input">
+            <input type="submit" value="ADD">
+            <button type="button" class="btn cancel" onclick="closeForm()">CANCLE</button>
+        </form>
+    </div>
+        <table border="1" cellpadding="5" cellspacing="5">
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Date</th>
+                <th>Type</th>
+            </tr>
+            @foreach (var i in Model)
+            {
+                <tr>
+                    <td>@i.title</td>
+                    <td>@i.author</td>
+                    <td>@i.price</td>
+                    <td>@i.date</td>
+                    <td>@i.c_name</td>
+
+                    <td>
+                      
+                      
+                        <a href="/Home/Edit/@i.Id">EDIT</a>
+                      
+                        <a href="/Home/Delete/@i.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    
+</body>

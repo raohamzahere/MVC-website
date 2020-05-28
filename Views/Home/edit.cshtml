@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "edit";
+}
+
+<head>
+    <style>
+  .form-popup {
+            
+            border: 3px solid #f1f1f1;
+            background-color: #D3D3D3;
+            border-radius: 5px;
+            width: 200px;
+            padding: 20px;
+        }
+     
+        </style>
+        <script>
+
+            function validateForm() {
+                var name = document.forms["ContactForm"]["title"].value;
+                var price = document.forms["ContactForm"]["price"].value;
+                var date = document.forms["ContactForm"]["date"].value;
+                var author = document.forms["ContactForm"]["author"].value;
+
+                var count = 0;
+
+                if (name == "" || name == null) {
+                    count = count + 1;   
+                }
+                 if (author == "" || author == null) {
+                     count = count + 1;    
+                }
+                if (price == "" || price == null) {
+                    count = count + 1;
+                }
+                 if (date == "" || date == null) {
+                     count = count + 1;
+                }
+                if (count ==4) {
+                    alert("ATLEAST FILL ONE FIELD TO SAVE CHANGES");
+                    return false;
+                }
+
+            }
+
+        </script>
+</head>
+<div class="form-popup">
+<form id="ContactForm" name="myForm" action="/Home/EditDone" onsubmit="return validateForm()" method="post" required>
+    <input type="hidden" name="_id" value=@Session["id"]>
+    <strong>Book Title :</strong><br />
+    <input type="text" name="title">
+    <br><br>
+    <strong>Author Name:</strong><br />
+    <input type="text" name="author">
+    <br><br>
+    <strong>Price of Book:</strong><br />
+    <input type="text" name="price">
+    <br><br>
+    <strong>Date OF publish:</strong><br />
+    <input type="text" name="date">
+    <input type="submit" value="SAVE CHANGES">
+
+</form>
+    </div>

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<JqeryMVCLoadExample.Models.c_name>
+
+
+
+<head>
+
+    <style>
+        .form {
+           
+            border: 3px solid #f1f1f1;
+            background-color: #D3D3D3;
+            border-radius: 5px;
+            width: 200px;
+            padding: 20px;
+           
+        }
+    </style>
+ 
+    <script>
+        function validate() {
+            var name = document.forms["Form"]["cat"].value;
+      
+            
+
+            if (name == "" || name == null) {
+                alert("Category  must be filled out");
+                return false;
+            }
+            
+        }
+        
+
+
+
+    </script>
+</head>
+
+
+
+
+<strong><label for="cars">Choose a catogory of Books:</label></strong>
+
+<select id="CategorySelector">
+    <option value="0">-Select-</option>
+    @foreach (var i in Model)
+    {
+        <option value=@i.c_name1>@i.c_name1</option>
+    }
+</select>
+<br>
+<br>
+<div class="form" >
+    <form id="Form" name="myForm" action="/Home/Add_category" onsubmit="return validate()" method="get" required>
+
+        <strong>ENTER CATEGORY:</strong><br />
+        <input type="text" name="cat">
+        <br>
+        <input type="submit" value="ADD NEW CATEGORY">
+    </form>
+    </div>
+<br>
+
+
+
+
+<div id="d1"></div>
+<script>
+
+    $('#CategorySelector').change(function () {
+        var value = $('#CategorySelector').val();
+
+        $('#d1').load('/home/datashow?cat=' + value);
+    });
+
+</script>
